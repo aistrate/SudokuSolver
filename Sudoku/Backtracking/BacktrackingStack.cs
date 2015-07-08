@@ -11,16 +11,18 @@ namespace Sudoku.Backtracking
 
         public TItem NextAlternative()
         {
+            if (currentFrame == null)
+            {
+                return null;
+            }
+
             TItem nextAlternative = currentFrame.NextAlternative();
 
             if (nextAlternative == null)
             {
                 currentFrame = currentFrame.PreviousFrame;
 
-                if (currentFrame != null)
-                {
-                    nextAlternative = currentFrame.NextAlternative();
-                }
+                return NextAlternative();
             }
 
             return nextAlternative;
