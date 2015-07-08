@@ -9,7 +9,7 @@ namespace Sudoku.SudokuGrid
         {
             if (grid == null || grid.Count != 9 || grid.Exists(row => row == null || row.Count != 9))
             {
-                throw new ApplicationException("Grid has wrong dimensions.");
+                throw new ApplicationException("Grid has the wrong dimensions.");
             }
 
             if (grid.Exists(row => row.Exists(elem => elem < 0 || elem > 9)))
