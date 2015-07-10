@@ -131,7 +131,7 @@ namespace Sudoku.Tests.SudokuGrid
         [Test]
         public void SimpleResolve()
         {
-            Grid before = new Grid(new[]
+            Grid grid = new Grid(new[]
             {
                 new[] { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
                 new[] { 0, 0, 0, 0, 1, 0, 0, 0, 0 },
@@ -144,7 +144,7 @@ namespace Sudoku.Tests.SudokuGrid
                 new[] { 0, 0, 0, 0, 8, 0, 0, 0, 0 },
             });
 
-            Grid after = new Grid(new[]
+            Grid resolved = new Grid(new[]
             {
                 new[] { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
                 new[] { 0, 0, 0, 0, 1, 0, 0, 0, 0 },
@@ -157,9 +157,9 @@ namespace Sudoku.Tests.SudokuGrid
                 new[] { 0, 0, 0, 0, 8, 0, 0, 0, 0 },
             });
 
-            before.Resolve();
+            grid.Resolve();
 
-            Assert.AreEqual(before, after);
+            Assert.AreEqual(resolved, grid);
         }
     }
 }

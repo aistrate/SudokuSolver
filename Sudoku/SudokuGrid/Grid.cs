@@ -68,13 +68,37 @@ namespace Sudoku.SudokuGrid
         }
 
         /// <summary>
-        /// Partially resolve the grid (the cells that have a unique solution). The grid will be changed in place.
+        /// Partially resolve the grid (fill cells that have a unique solution). The grid will be changed in place.
         /// </summary>
         public void Resolve()
         {
             if (!isValid)
             {
                 return;
+            }
+
+            bool modified = false;
+
+            foreach (Cell[] group in allGroups)
+            {
+                int[] filledValues = group.Where(cell => cell.Value != 0).Select(cell => cell.Value).ToArray();
+
+                if (filledValues.Count() == 8)
+                {
+                    int missingValue = Enumerable.Range(1, 9).Except(filledValues).First();
+                    Cell emptyCell = group.First(cell => cell.Value == 0);
+
+                    emptyCell.Value = missingValue;
+
+                    modified = true;
+                }
+            }
+
+            validateGroups();
+
+            if (modified)
+            {
+                Resolve();
             }
         }
 
