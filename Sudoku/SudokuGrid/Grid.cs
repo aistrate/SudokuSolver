@@ -108,7 +108,7 @@ namespace Sudoku.SudokuGrid
         {
             if (IsUnsolvable)
             {
-                throw new ApplicationException("Sudoku grid is unsolvable.");
+                throw new ApplicationException("Grid is unsolvable.");
             }
 
             return new List<Grid>();
