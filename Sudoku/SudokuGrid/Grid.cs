@@ -118,7 +118,7 @@ namespace Sudoku.SudokuGrid
             {
                 int emptyCells = group.Count(cell => cell.Value == 0);
 
-                if (emptyCells < minEmptyCells)
+                if (1 < emptyCells && emptyCells < minEmptyCells)
                 {
                     minEmptyCells = emptyCells;
                     minGroup = group;
@@ -135,7 +135,13 @@ namespace Sudoku.SudokuGrid
                 foreach (int missingValue in missingValues)
                 {
                     firstEmptyCell.Value = missingValue;
-                    alternatives.Add(this.Clone());
+
+                    validateGroups();
+
+                    if (isValid)
+                    {
+                        alternatives.Add(this.Clone());
+                    }
                 }
 
                 firstEmptyCell.Value = 0;
