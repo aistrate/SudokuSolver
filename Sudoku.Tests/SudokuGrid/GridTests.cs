@@ -92,6 +92,42 @@ namespace Sudoku.Tests.SudokuGrid
             });
         }
 
+        [Test]
+        [ExpectedException(typeof(ApplicationException))]
+        public void ValidateColumn()
+        {
+            Grid grid = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 2, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 5, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 7, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 1, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 5, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 6, 0, 0, 0 },
+            });
+        }
+
+        [Test]
+        [ExpectedException(typeof(ApplicationException))]
+        public void ValidateThreeSquare()
+        {
+            Grid grid = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 2, 0, 6, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 9, 4, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
+            });
+        }
+
         //[Test]
         public void SimpleResolve()
         {
