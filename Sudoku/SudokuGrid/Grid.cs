@@ -135,7 +135,6 @@ namespace Sudoku.SudokuGrid
                 foreach (int missingValue in missingValues)
                 {
                     firstEmptyCell.Value = missingValue;
-
                     validateGroups();
 
                     if (isValid)
@@ -145,6 +144,7 @@ namespace Sudoku.SudokuGrid
                 }
 
                 firstEmptyCell.Value = 0;
+                validateGroups();
             }
 
             return alternatives;
