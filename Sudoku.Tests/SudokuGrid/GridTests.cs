@@ -234,5 +234,41 @@ namespace Sudoku.Tests.SudokuGrid
             Assert.AreEqual(alternative1, alternatives[0], "First alternative");
             Assert.AreEqual(alternative2, alternatives[1], "Second alternative");
         }
+
+        [Test]
+        public void GetAlternativesFromEmpty()
+        {
+            Grid emptyGrid = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            });
+
+            Grid alternative7 = new Grid(new[]
+            {
+                new[] { 7, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            });
+
+            Grid[] alternatives = emptyGrid.GetAlternatives().ToArray();
+
+            Assert.AreEqual(9, alternatives.Length, "Number of alternatives");
+
+            Assert.AreEqual(alternative7, alternatives[6], "Alternative 7");
+        }
     }
 }
