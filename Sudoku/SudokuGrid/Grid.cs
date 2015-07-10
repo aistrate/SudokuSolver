@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sudoku.SudokuGrid
 {
-    public class Grid
+    public class Grid : IEquatable<Grid>
     {
         public Grid(List<List<int>> grid)
         {
@@ -16,6 +17,8 @@ namespace Sudoku.SudokuGrid
             {
                 throw new ApplicationException("Grid should contain numbers between 0 and 9.");
             }
+
+            this.grid = grid;
         }
 
         /// <summary>
@@ -44,5 +47,40 @@ namespace Sudoku.SudokuGrid
         {
             get { return false; }
         }
+
+        bool IEquatable<Grid>.Equals(Grid other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (!this.grid[i].SequenceEqual(other.grid[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            return grid.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return ((IEquatable<Grid>)this).Equals(obj as Grid);
+        }
+
+        public override string ToString()
+        {
+            return string.Join(",", grid.Select(row => string.Join("", row)));
+        }
+
+        private List<List<int>> grid;
     }
 }
