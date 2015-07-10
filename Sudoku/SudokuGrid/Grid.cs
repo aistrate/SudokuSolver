@@ -111,7 +111,37 @@ namespace Sudoku.SudokuGrid
                 throw new ApplicationException("Grid is unsolvable.");
             }
 
-            return new List<Grid>();
+            int minEmptyCells = 10;
+            Cell[] minGroup = null;
+
+            foreach (Cell[] group in allGroups)
+            {
+                int emptyCells = group.Count(cell => cell.Value == 0);
+
+                if (emptyCells < minEmptyCells)
+                {
+                    minEmptyCells = emptyCells;
+                    minGroup = group;
+                }
+            }
+
+            var alternatives = new List<Grid>();
+
+            if (minGroup != null)
+            {
+                int[] missingValues = Enumerable.Range(1, 9).Except(minGroup.Where(cell => cell.Value != 0).Select(cell => cell.Value)).ToArray();
+                Cell firstEmptyCell = minGroup.First(cell => cell.Value == 0);
+
+                foreach (int missingValue in missingValues)
+                {
+                    firstEmptyCell.Value = missingValue;
+                    alternatives.Add(this.Clone());
+                }
+
+                firstEmptyCell.Value = 0;
+            }
+
+            return alternatives;
         }
 
         public Grid Clone()
