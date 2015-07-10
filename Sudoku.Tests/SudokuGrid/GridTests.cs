@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Sudoku.SudokuGrid;
 
@@ -162,6 +162,56 @@ namespace Sudoku.Tests.SudokuGrid
             });
 
             Assert.IsTrue(grid.IsSolved);
+        }
+
+        [Test]
+        public void GetAlternatives()
+        {
+            Grid grid = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 6, 0, 8, 0, 4, 2, 0, 3, 5 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 4, 5, 0, 9, 6, 8, 1, 7, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            });
+
+            Grid alternative1 = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 6, 0, 8, 0, 4, 2, 0, 3, 5 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 4, 5, 2, 9, 6, 8, 1, 7, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            });
+
+            Grid alternative2 = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 6, 0, 8, 0, 4, 2, 0, 3, 5 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 4, 5, 3, 9, 6, 8, 1, 7, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            });
+
+            Grid[] alternatives = grid.GetAlternatives().ToArray();
+
+            Assert.AreEqual(2, alternatives.Length, "Number of alternatives");
+
+            Assert.AreEqual(alternative1, alternatives[0], "First alternative");
+            Assert.AreEqual(alternative2, alternatives[1], "Second alternative");
         }
     }
 }
