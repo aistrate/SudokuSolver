@@ -21,6 +21,7 @@ namespace Sudoku.SudokuGrid
             this.grid = grid.Select(row => row.Select(val => new Cell(val)).ToArray()).ToArray();
 
             assignGroups();
+            validateGroups();
         }
 
         private void assignGroups()
@@ -43,6 +44,19 @@ namespace Sudoku.SudokuGrid
             //Console.WriteLine(string.Join("\n", threeSquares.Select(row => string.Join(",", row.Select(cell => cell.Value)))) + "\n");
 
             allGroups = rows.Concat(columns).Concat(threeSquares).ToArray();
+        }
+
+        private void validateGroups()
+        {
+            foreach (Cell[] group in allGroups)
+            {
+                int[] filledValues = group.Where(cell => cell.Value != 0).Select(cell => cell.Value).ToArray();
+
+                if (filledValues.Count() != filledValues.Distinct().Count())
+                {
+                    throw new ApplicationException("Value appears more than once in group.");
+                }
+            }
         }
 
         /// <summary>

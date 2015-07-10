@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Sudoku.SudokuGrid;
 
@@ -74,6 +75,24 @@ namespace Sudoku.Tests.SudokuGrid
         //}
 
         [Test]
+        [ExpectedException(typeof(ApplicationException))]
+        public void ValidateRow()
+        {
+            Grid grid = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 1, 0, 5, 0, 0, 2, 1, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            });
+        }
+
+        //[Test]
         public void SimpleResolve()
         {
             Grid before = new Grid(new[]
