@@ -40,6 +40,8 @@ namespace Sudoku.SudokuGrid
                             threeSquares[3 * outerRow + outerCol][3 * innerRow + innerCol] = grid[3 * outerRow + innerRow][3 * outerCol + innerCol];
 
             //Console.WriteLine(string.Join("\n", threeSquares.Select(row => string.Join(",", row.Select(cell => cell.Value)))) + "\n");
+
+            allGroups = rows.Concat(columns).Concat(threeSquares).ToArray();
         }
 
         /// <summary>
@@ -95,5 +97,7 @@ namespace Sudoku.SudokuGrid
         private Cell[][] rows;
         private Cell[][] columns;
         private Cell[][] threeSquares;
+
+        private Cell[][] allGroups;
     }
 }
