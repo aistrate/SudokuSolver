@@ -22,6 +22,11 @@ namespace Sudoku.SudokuGrid
 
             assignGroups();
             validateGroups();
+
+            if (!isValid)
+            {
+                throw new ApplicationException("Value appearing more than once in a group.");
+            }
         }
 
         private void assignGroups()
@@ -54,13 +59,12 @@ namespace Sudoku.SudokuGrid
 
                 if (filledValues.Count() != filledValues.Distinct().Count())
                 {
-                    foreach (Cell[] row in grid)
-                        foreach (Cell cell in row)
-                            cell.Value = 0;
-
-                    throw new ApplicationException("Value appearing more than once in a group.");
+                    isValid = false;
+                    return;
                 }
             }
+
+            isValid = true;
         }
 
         /// <summary>
@@ -68,7 +72,10 @@ namespace Sudoku.SudokuGrid
         /// </summary>
         public void Resolve()
         {
-
+            if (!isValid)
+            {
+                return;
+            }
         }
 
         /// <summary>
@@ -77,6 +84,11 @@ namespace Sudoku.SudokuGrid
         /// <returns>A collection of Grids representing alternatives.</returns>
         public IEnumerable<Grid> GetAlternatives()
         {
+            if (IsUnsolvable)
+            {
+                throw new ApplicationException("Sudoku grid is unsolvable.");
+            }
+
             return new List<Grid>();
         }
 
@@ -87,7 +99,7 @@ namespace Sudoku.SudokuGrid
 
         public bool IsUnsolvable
         {
-            get { return false; }
+            get { return !isValid; }
         }
 
         bool IEquatable<Grid>.Equals(Grid other)
@@ -113,5 +125,6 @@ namespace Sudoku.SudokuGrid
 
         private Cell[][] grid;
         private Cell[][] allGroups;
+        private bool isValid;
     }
 }
