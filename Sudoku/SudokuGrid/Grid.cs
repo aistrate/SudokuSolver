@@ -38,6 +38,8 @@ namespace Sudoku.SudokuGrid
                     for (int innerRow = 0; innerRow < 3; innerRow++)
                         for (int innerCol = 0; innerCol < 3; innerCol++)
                             threeSquares[3 * outerRow + outerCol][3 * innerRow + innerCol] = grid[3 * outerRow + innerRow][3 * outerCol + innerCol];
+
+            //Console.WriteLine(string.Join("\n", threeSquares.Select(row => string.Join(",", row.Select(cell => cell.Value)))) + "\n");
         }
 
         /// <summary>
