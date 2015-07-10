@@ -10,7 +10,7 @@ namespace Sudoku
         {
             var backtrackingStack = new BacktrackingStack<Grid>();
 
-            backtrackingStack.PushAlternatives(new[] { grid });
+            backtrackingStack.PushAlternatives(new[] { grid.Clone() });
 
             while (true)
             {
