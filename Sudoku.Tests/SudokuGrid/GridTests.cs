@@ -8,7 +8,7 @@ namespace Sudoku.Tests.SudokuGrid
     public class GridTests
     {
         [Test]
-        public void GridConstructor()
+        public void Constructor()
         {
             Grid grid = new Grid(new[]
             {
@@ -25,7 +25,7 @@ namespace Sudoku.Tests.SudokuGrid
         }
 
         [Test]
-        public void GridEquals()
+        public void Equals()
         {
             Grid first = new Grid(new[]
             {
@@ -54,6 +54,40 @@ namespace Sudoku.Tests.SudokuGrid
             });
 
             Assert.AreEqual(first, second);
+        }
+
+        [Test]
+        public void SimpleResolve()
+        {
+            Grid before = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 3, 0, 8, 1, 4, 2, 9, 6, 5 },
+                new[] { 0, 0, 0, 5, 3, 0, 0, 0, 0 },
+                new[] { 7, 5, 2, 9, 6, 8, 1, 4, 0 },
+                new[] { 0, 0, 0, 0, 7, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 9, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 8, 0, 0, 0, 0 },
+            });
+
+            Grid after = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 5, 0, 0, 0, 0 },
+                new[] { 3, 7, 8, 1, 4, 2, 9, 6, 5 },
+                new[] { 0, 0, 0, 5, 3, 7, 0, 0, 0 },
+                new[] { 7, 5, 2, 9, 6, 8, 1, 4, 3 },
+                new[] { 0, 0, 0, 0, 7, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 9, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 8, 0, 0, 0, 0 },
+            });
+
+            before.Resolve();
+
+            Assert.AreEqual(before, after);
         }
     }
 }
