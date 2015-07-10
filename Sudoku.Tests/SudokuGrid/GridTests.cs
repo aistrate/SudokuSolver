@@ -128,7 +128,7 @@ namespace Sudoku.Tests.SudokuGrid
             });
         }
 
-        //[Test]
+        [Test]
         public void SimpleResolve()
         {
             Grid before = new Grid(new[]
@@ -138,7 +138,7 @@ namespace Sudoku.Tests.SudokuGrid
                 new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                 new[] { 3, 0, 8, 1, 4, 2, 9, 6, 5 },
                 new[] { 0, 0, 0, 5, 3, 0, 0, 0, 0 },
-                new[] { 7, 5, 2, 9, 6, 8, 1, 4, 0 },
+                new[] { 4, 5, 2, 9, 6, 8, 1, 7, 0 },
                 new[] { 0, 0, 0, 0, 7, 0, 0, 0, 0 },
                 new[] { 0, 0, 0, 0, 9, 0, 0, 0, 0 },
                 new[] { 0, 0, 0, 0, 8, 0, 0, 0, 0 },
@@ -151,7 +151,7 @@ namespace Sudoku.Tests.SudokuGrid
                 new[] { 0, 0, 0, 0, 5, 0, 0, 0, 0 },
                 new[] { 3, 7, 8, 1, 4, 2, 9, 6, 5 },
                 new[] { 0, 0, 0, 5, 3, 7, 0, 0, 0 },
-                new[] { 7, 5, 2, 9, 6, 8, 1, 4, 3 },
+                new[] { 4, 5, 2, 9, 6, 8, 1, 7, 3 },
                 new[] { 0, 0, 0, 0, 7, 0, 0, 0, 0 },
                 new[] { 0, 0, 0, 0, 9, 0, 0, 0, 0 },
                 new[] { 0, 0, 0, 0, 8, 0, 0, 0, 0 },
