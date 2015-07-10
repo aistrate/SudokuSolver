@@ -161,5 +161,24 @@ namespace Sudoku.Tests.SudokuGrid
 
             Assert.AreEqual(resolved, grid);
         }
+
+        [Test]
+        public void IsSolved()
+        {
+            Grid grid = new Grid(new[]
+            {
+                new[] { 2, 9, 5, 7, 4, 3, 8, 6, 1 },
+                new[] { 4, 3, 1, 8, 6, 5, 9, 2, 7 },
+                new[] { 8, 7, 6, 1, 9, 2, 5, 4, 3 },
+                new[] { 3, 8, 7, 4, 5, 9, 2, 1, 6 },
+                new[] { 6, 1, 2, 3, 8, 7, 4, 9, 5 },
+                new[] { 5, 4, 9, 2, 1, 6, 7, 3, 8 },
+                new[] { 7, 6, 3, 5, 2, 4, 1, 8, 9 },
+                new[] { 9, 2, 8, 6, 7, 1, 3, 5, 4 },
+                new[] { 1, 5, 4, 9, 3, 8, 6, 7, 2 },
+            });
+
+            Assert.IsTrue(grid.IsSolved);
+        }
     }
 }

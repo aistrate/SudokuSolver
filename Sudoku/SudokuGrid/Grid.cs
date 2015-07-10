@@ -118,7 +118,7 @@ namespace Sudoku.SudokuGrid
 
         public bool IsSolved
         {
-            get { return false; }
+            get { return isValid && grid.All(row => row.All(cell => cell.Value != 0)); }
         }
 
         public bool IsUnsolvable
