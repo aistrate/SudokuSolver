@@ -18,7 +18,26 @@ namespace Sudoku.SudokuGrid
                 throw new ApplicationException("Grid should contain numbers between 0 and 9.");
             }
 
-            this.grid = grid;
+            this.grid = grid.Select(row => row.Select(val => new Cell(val)).ToArray()).ToArray();
+
+            assignGroups();
+        }
+
+        private void assignGroups()
+        {
+            rows = grid;
+
+            columns = Enumerable.Range(0, 9).Select(colIndex => Enumerable.Range(0, 9).Select(rowIndex => grid[rowIndex][colIndex]).ToArray()).ToArray();
+
+            threeSquares = new Cell[9][];
+            for (int row = 0; row < 9; row++)
+                threeSquares[row] = new Cell[9];
+
+            for (int outerRow = 0; outerRow < 3; outerRow++)
+                for (int outerCol = 0; outerCol < 3; outerCol++)
+                    for (int innerRow = 0; innerRow < 3; innerRow++)
+                        for (int innerCol = 0; innerCol < 3; innerCol++)
+                            threeSquares[3 * outerRow + outerCol][3 * innerRow + innerCol] = grid[3 * outerRow + innerRow][3 * outerCol + innerCol];
         }
 
         /// <summary>
@@ -66,9 +85,13 @@ namespace Sudoku.SudokuGrid
 
         public override string ToString()
         {
-            return string.Join(",", grid.Select(row => string.Join("", row)));
+            return string.Join(",", grid.Select(row => string.Join("", row.Select(cell => cell.Value))));
         }
 
-        private int[][] grid;
+        private Cell[][] grid;
+
+        private Cell[][] rows;
+        private Cell[][] columns;
+        private Cell[][] threeSquares;
     }
 }

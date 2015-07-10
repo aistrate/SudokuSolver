@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Backtracking\BacktrackingStack.cs" />
     <Compile Include="Solver.cs" />
+    <Compile Include="SudokuGrid\Cell.cs" />
     <Compile Include="SudokuGrid\Grid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Backtracking\StackFrame.cs" />
