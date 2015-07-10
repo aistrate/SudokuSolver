@@ -25,11 +25,12 @@ namespace Sudoku.SudokuGrid
 
         private void assignGroups()
         {
-            rows = grid;
+            Cell[][] rows = grid;
 
-            columns = Enumerable.Range(0, 9).Select(colIndex => Enumerable.Range(0, 9).Select(rowIndex => grid[rowIndex][colIndex]).ToArray()).ToArray();
+            Cell[][] columns = Enumerable.Range(0, 9).Select(colIndex => Enumerable.Range(0, 9).Select(rowIndex => grid[rowIndex][colIndex]).ToArray()).ToArray();
 
-            threeSquares = new Cell[9][];
+            Cell[][] threeSquares = new Cell[9][];
+
             for (int row = 0; row < 9; row++)
                 threeSquares[row] = new Cell[9];
 
@@ -93,11 +94,6 @@ namespace Sudoku.SudokuGrid
         }
 
         private Cell[][] grid;
-
-        private Cell[][] rows;
-        private Cell[][] columns;
-        private Cell[][] threeSquares;
-
         private Cell[][] allGroups;
     }
 }
