@@ -22,7 +22,7 @@ namespace Sudoku.SudokuGrid
         }
 
         /// <summary>
-        /// Partially resolve the grid (the cells that have a unique solution). The grid is changed in place.
+        /// Partially resolve the grid (the cells that have a unique solution). The grid will be changed in place.
         /// </summary>
         public void Resolve()
         {

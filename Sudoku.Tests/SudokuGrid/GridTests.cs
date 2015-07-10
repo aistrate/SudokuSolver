@@ -8,7 +8,7 @@ namespace Sudoku.Tests.SudokuGrid
     public class GridTests
     {
         [Test]
-        public void ObjectCreation()
+        public void GridConstructor()
         {
             Grid grid = new Grid(new[]
             {
