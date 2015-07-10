@@ -54,6 +54,10 @@ namespace Sudoku.SudokuGrid
 
                 if (filledValues.Count() != filledValues.Distinct().Count())
                 {
+                    foreach (Cell[] row in grid)
+                        foreach (Cell cell in row)
+                            cell.Value = 0;
+
                     throw new ApplicationException("Value appearing more than once in a group.");
                 }
             }
