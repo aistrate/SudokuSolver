@@ -50,25 +50,13 @@ namespace Sudoku.SudokuGrid
 
         bool IEquatable<Grid>.Equals(Grid other)
         {
-            if (other == null)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < 9; i++)
-            {
-                if (!this.grid[i].SequenceEqual(other.grid[i]))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return other != null &&
+                   this.ToString() == other.ToString();
         }
 
         public override int GetHashCode()
         {
-            return grid.ToString().GetHashCode();
+            return this.ToString().GetHashCode();
         }
 
         public override bool Equals(object obj)
