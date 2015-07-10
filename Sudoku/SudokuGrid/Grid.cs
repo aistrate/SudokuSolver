@@ -114,6 +114,11 @@ namespace Sudoku.SudokuGrid
             return new List<Grid>();
         }
 
+        public Grid Clone()
+        {
+            return new Grid(grid.Select(row => row.Select(cell => cell.Value).ToArray()).ToArray());
+        }
+
         public bool IsSolved
         {
             get { return isValid && grid.All(row => row.All(cell => cell.Value != 0)); }
