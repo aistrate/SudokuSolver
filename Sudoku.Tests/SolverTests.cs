@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using Sudoku.SudokuGrid;
 
@@ -27,6 +28,39 @@ namespace Sudoku.Tests
 
             Assert.AreEqual(1, solutions.Length, "Number of solutions");
             Assert.IsTrue(solutions[0].IsSolved, "IsSolved");
+
+            Console.WriteLine(grid);
+            Console.WriteLine(solutions[0]);
+        }
+
+        [Test]
+        public void EmptyGrid()
+        {
+            Grid emptyGrid = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            });
+
+            int solutionCount = 10;
+
+            Grid[] solutions = Solver.GetSolutions(emptyGrid).Take(solutionCount).ToArray();
+
+            Assert.AreEqual(solutionCount, solutions.Length, "Number of solutions");
+
+            for (int i = 0; i < solutionCount; i++)
+            {
+                Assert.IsTrue(solutions[i].IsSolved, "Solution " + (i + 1));
+
+                Console.WriteLine(solutions[i]);
+            }
         }
     }
 }
