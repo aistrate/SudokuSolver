@@ -92,28 +92,30 @@ namespace Sudoku.Tests
         [Test]
         public void SolveEasyGrids()
         {
-            // 50 grids, 128 sec to run; slowest grids are 47 (40 sec) and 49 (63 sec)
-            solveGrids(@"..\..\Examples\EasyGrids.txt");
+            // All 50 grids take 128 sec to run. The slowest are Grid 47 (40 sec) and Grid 49 (63 sec).
+            // The first 46 grids take 23 sec to run. The first 10 take 5 sec.
+            Grid[] grids = readGridsFromFile(@"..\..\Examples\EasyGrids.txt").Take(10).ToArray();
+            solveGrids(grids);
         }
 
-        [Test]
+        //[Test]
         public void SolveHardGrids()
         {
-            // 95 grids
-            solveGrids(@"..\..\Examples\HardGrids.txt");
+            // 95 grids; they run very slow
+            Grid[] grids = readGridsFromFile(@"..\..\Examples\HardGrids.txt").ToArray();
+            solveGrids(grids);
         }
 
         [Test]
         public void SolveHarderGrid()
         {
             // 1 grid, 2 sec to run
-            solveGrids(@"..\..\Examples\HarderGrid.txt");
+            Grid[] grids = readGridsFromFile(@"..\..\Examples\HarderGrid.txt").ToArray();
+            solveGrids(grids);
         }
 
-        private void solveGrids(string filePath)
+        private void solveGrids(Grid[] grids)
         {
-            Grid[] grids = readGridsFromFile(filePath).ToArray();
-
             for (int i = 0; i < grids.Length; i++)
             {
                 Grid[] solutions = Solver.GetSolutions(grids[i]).ToArray();
