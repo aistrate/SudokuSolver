@@ -21,8 +21,6 @@ namespace Sudoku
                     yield break;
                 }
 
-                currentGrid.Resolve();
-
                 if (currentGrid.IsUnsolvable)
                 {
                     continue;

@@ -118,7 +118,7 @@ namespace Sudoku.SudokuGrid
             {
                 int emptyCells = group.Count(cell => cell.Value == 0);
 
-                if (1 < emptyCells && emptyCells < minEmptyCells)
+                if (0 < emptyCells && emptyCells < minEmptyCells)
                 {
                     minEmptyCells = emptyCells;
                     minGroup = group;
