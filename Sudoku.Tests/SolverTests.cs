@@ -66,7 +66,7 @@ namespace Sudoku.Tests
         [Test]
         public void Performance()
         {
-            const int repetitions = 100;
+            const int repetitions = 10;    // Can be a larger number
 
             for (int i = 0; i < repetitions; i++)
             {
