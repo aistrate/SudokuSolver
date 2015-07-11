@@ -112,40 +112,6 @@ namespace Sudoku.Tests.SudokuGrid
         }
 
         [Test]
-        public void SimpleResolve()
-        {
-            Grid grid = new Grid(new[]
-            {
-                new[] { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
-                new[] { 0, 0, 0, 0, 1, 0, 0, 0, 0 },
-                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                new[] { 3, 0, 8, 1, 4, 2, 9, 6, 5 },
-                new[] { 0, 0, 0, 5, 3, 0, 0, 0, 0 },
-                new[] { 4, 5, 2, 9, 6, 8, 1, 7, 0 },
-                new[] { 0, 0, 0, 0, 7, 0, 0, 0, 0 },
-                new[] { 0, 0, 0, 0, 9, 0, 0, 0, 0 },
-                new[] { 0, 0, 0, 0, 8, 0, 0, 0, 0 },
-            });
-
-            Grid resolved = new Grid(new[]
-            {
-                new[] { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
-                new[] { 0, 0, 0, 0, 1, 0, 0, 0, 0 },
-                new[] { 0, 0, 0, 0, 5, 0, 0, 0, 0 },
-                new[] { 3, 7, 8, 1, 4, 2, 9, 6, 5 },
-                new[] { 0, 0, 0, 5, 3, 7, 0, 0, 0 },
-                new[] { 4, 5, 2, 9, 6, 8, 1, 7, 3 },
-                new[] { 0, 0, 0, 0, 7, 0, 0, 0, 0 },
-                new[] { 0, 0, 0, 0, 9, 0, 0, 0, 0 },
-                new[] { 0, 0, 0, 0, 8, 0, 0, 0, 0 },
-            });
-
-            grid.Resolve();
-
-            Assert.AreEqual(resolved, grid);
-        }
-
-        [Test]
         public void IsSolved()
         {
             Grid grid = new Grid(new[]
@@ -269,6 +235,95 @@ namespace Sudoku.Tests.SudokuGrid
             Assert.AreEqual(9, alternatives.Length, "Number of alternatives");
 
             Assert.AreEqual(alternative7, alternatives[6], "Alternative 7");
+        }
+
+        [Test]
+        public void RepeatedGetAlternatives()
+        {
+            Grid grid = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 3, 0, 8, 1, 4, 2, 9, 6, 5 },
+                new[] { 0, 0, 0, 5, 3, 0, 0, 0, 0 },
+                new[] { 4, 5, 2, 9, 6, 8, 1, 7, 0 },
+                new[] { 0, 0, 0, 0, 7, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 9, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 8, 0, 0, 0, 0 },
+            });
+
+            Grid step1 = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 3, 7, 8, 1, 4, 2, 9, 6, 5 },
+                new[] { 0, 0, 0, 5, 3, 0, 0, 0, 0 },
+                new[] { 4, 5, 2, 9, 6, 8, 1, 7, 0 },
+                new[] { 0, 0, 0, 0, 7, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 9, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 8, 0, 0, 0, 0 },
+            });
+
+            Grid step2 = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new[] { 3, 7, 8, 1, 4, 2, 9, 6, 5 },
+                new[] { 0, 0, 0, 5, 3, 0, 0, 0, 0 },
+                new[] { 4, 5, 2, 9, 6, 8, 1, 7, 3 },
+                new[] { 0, 0, 0, 0, 7, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 9, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 8, 0, 0, 0, 0 },
+            });
+
+            Grid step3 = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 5, 0, 0, 0, 0 },
+                new[] { 3, 7, 8, 1, 4, 2, 9, 6, 5 },
+                new[] { 0, 0, 0, 5, 3, 0, 0, 0, 0 },
+                new[] { 4, 5, 2, 9, 6, 8, 1, 7, 3 },
+                new[] { 0, 0, 0, 0, 7, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 9, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 8, 0, 0, 0, 0 },
+            });
+
+            Grid step4 = new Grid(new[]
+            {
+                new[] { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 5, 0, 0, 0, 0 },
+                new[] { 3, 7, 8, 1, 4, 2, 9, 6, 5 },
+                new[] { 0, 0, 0, 5, 3, 7, 0, 0, 0 },
+                new[] { 4, 5, 2, 9, 6, 8, 1, 7, 3 },
+                new[] { 0, 0, 0, 0, 7, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 9, 0, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 8, 0, 0, 0, 0 },
+            });
+
+            Grid[] alternatives = grid.GetAlternatives().ToArray();
+
+            Assert.AreEqual(1, alternatives.Length, "Step 1 alternatives");
+            Assert.AreEqual(step1, alternatives[0], "Step 1");
+
+            alternatives = alternatives[0].GetAlternatives().ToArray();
+
+            Assert.AreEqual(1, alternatives.Length, "Step 2 alternatives");
+            Assert.AreEqual(step2, alternatives[0], "Step 2");
+
+            alternatives = alternatives[0].GetAlternatives().ToArray();
+
+            Assert.AreEqual(1, alternatives.Length, "Step 3 alternatives");
+            Assert.AreEqual(step3, alternatives[0], "Step 3");
+
+            alternatives = alternatives[0].GetAlternatives().ToArray();
+
+            Assert.AreEqual(1, alternatives.Length, "Step 4 alternatives");
+            Assert.AreEqual(step4, alternatives[0], "Step 4");
         }
     }
 }
