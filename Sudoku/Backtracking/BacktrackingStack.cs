@@ -2,7 +2,7 @@
 
 namespace Sudoku.Backtracking
 {
-    internal class BacktrackingStack<TItem> where TItem : class
+    public class BacktrackingStack<TItem> where TItem : class
     {
         public void PushAlternatives(IEnumerable<TItem> alternatives)
         {
@@ -26,6 +26,11 @@ namespace Sudoku.Backtracking
             }
 
             return nextAlternative;
+        }
+
+        public int Depth
+        {
+            get { return currentFrame.Depth; }
         }
 
         private StackFrame<TItem> currentFrame;

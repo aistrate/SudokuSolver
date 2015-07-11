@@ -25,6 +25,11 @@ namespace Sudoku.Backtracking
             get { return previousFrame; }
         }
 
+        public int Depth
+        {
+            get { return previousFrame != null ? previousFrame.Depth + 1 : 1; }
+        }
+
         private int currentIndex = 0;
         private List<TItem> alternatives;
         private StackFrame<TItem> previousFrame;
