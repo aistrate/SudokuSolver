@@ -101,7 +101,7 @@ namespace Sudoku.Tests
         //[Test]
         public void SolveHardGrids()
         {
-            // 95 grids; they run very slow
+            // 95 grids; many run very slow (the first grid runs in 9 min)
             Grid[] grids = readGridsFromFile(@"..\..\Examples\HardGrids.txt").ToArray();
             solveGrids(grids);
         }
