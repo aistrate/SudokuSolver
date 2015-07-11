@@ -92,7 +92,7 @@ namespace Sudoku.Tests
         [Test]
         public void SolveEasyGrids()
         {
-            Grid[] grids = readGridsFromFile(@"C:\Languages\CSharp\SudokuSolver\Sudoku.Tests\Examples\EasyGrids.txt").ToArray();
+            Grid[] grids = readGridsFromFile(@"..\..\Examples\EasyGrids.txt").ToArray();
 
             for (int i = 0; i < grids.Length; i++)
             {
