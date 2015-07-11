@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using NUnit.Framework;
 using Sudoku.SudokuGrid;
@@ -84,6 +86,65 @@ namespace Sudoku.Tests
                 });
 
                 Grid[] solutions = Solver.GetSolutions(grid).ToArray();
+            }
+        }
+
+        [Test]
+        public void SolveEasyGrids()
+        {
+            Grid[] grids = readGridsFromFile(@"C:\Languages\CSharp\SudokuSolver\Sudoku.Tests\Examples\EasyGrids.txt").ToArray();
+
+            for (int i = 0; i < grids.Length; i++)
+            {
+                Grid[] solutions = Solver.GetSolutions(grids[i]).ToArray();
+
+                Assert.AreEqual(1, solutions.Length, "Solutions for grid " + (i + 1));
+                Assert.IsTrue(solutions[0].IsSolved, "IsSolved for grid " + (i + 1));
+
+                Console.WriteLine("Grid " + (i + 1));
+                Console.WriteLine(grids[i]);
+                Console.WriteLine(solutions[0]);
+            }
+        }
+
+        private IEnumerable<Grid> readGridsFromFile(string filePath)
+        {
+            List<int[]> grid = null;
+            int gridLine = 0;
+
+            foreach (string line in readLinesFromFile(filePath))
+            {
+                if (gridLine == 0)
+                {
+                    grid = new List<int[]>();
+                }
+                else
+                {
+                    int[] gridRow = line.ToCharArray().Select(c => ((int)c - (int)'0')).ToArray();
+                    grid.Add(gridRow);
+                }
+
+                gridLine++;
+
+                if (gridLine > 9)
+                {
+                    gridLine = 0;
+                    yield return new Grid(grid.ToArray());
+                }
+            }
+        }
+
+        private IEnumerable<string> readLinesFromFile(string filePath)
+        {
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                while (true)
+                {
+                    string line = sr.ReadLine();
+                    if (line == null)
+                        break;
+                    yield return line;
+                }
             }
         }
     }
