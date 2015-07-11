@@ -49,7 +49,7 @@ namespace Sudoku.Tests
                 new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             });
 
-            int solutionCount = 10;
+            const int solutionCount = 10;
 
             Grid[] solutions = Solver.GetSolutions(emptyGrid).Take(solutionCount).ToArray();
 
@@ -60,6 +60,30 @@ namespace Sudoku.Tests
                 Assert.IsTrue(solutions[i].IsSolved, "Solution " + (i + 1));
 
                 Console.WriteLine(solutions[i]);
+            }
+        }
+
+        [Test]
+        public void Performance()
+        {
+            const int repetitions = 100;
+
+            for (int i = 0; i < repetitions; i++)
+            {
+                Grid grid = new Grid(new[]
+                {
+                    new[] { 0, 0, 3, 0, 2, 0, 6, 0, 0 },
+                    new[] { 9, 0, 0, 3, 0, 5, 0, 0, 1 },
+                    new[] { 0, 0, 1, 8, 0, 6, 4, 0, 0 },
+                    new[] { 0, 0, 8, 1, 0, 2, 9, 0, 0 },
+                    new[] { 7, 0, 0, 0, 0, 0, 0, 0, 8 },
+                    new[] { 0, 0, 6, 7, 0, 8, 2, 0, 0 },
+                    new[] { 0, 0, 2, 6, 0, 9, 5, 0, 0 },
+                    new[] { 8, 0, 0, 2, 0, 3, 0, 0, 9 },
+                    new[] { 0, 0, 5, 0, 1, 0, 3, 0, 0 },
+                });
+
+                Grid[] solutions = Solver.GetSolutions(grid).ToArray();
             }
         }
     }
