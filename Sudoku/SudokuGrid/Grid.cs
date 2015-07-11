@@ -144,7 +144,7 @@ namespace Sudoku.SudokuGrid
                 }
 
                 firstEmptyCell.Value = 0;
-                validateGroups();
+                isValid = (alternatives.Count > 0);
             }
 
             return alternatives;
