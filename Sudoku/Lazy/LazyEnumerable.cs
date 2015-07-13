@@ -7,8 +7,8 @@ namespace Sudoku.Lazy
     {
         public LazyEnumerable(IEnumerable<T> collection)
         {
-            unevaluatedCollEnumerator = collection.GetEnumerator();
             evaluatedColl = new List<T>();
+            unevaluatedCollEnumerator = collection.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -18,20 +18,20 @@ namespace Sudoku.Lazy
 
         public IEnumerator<T> GetEnumerator()
         {
-            return new LazyEnumerator(unevaluatedCollEnumerator, evaluatedColl);
+            return new LazyEnumerator(evaluatedColl, unevaluatedCollEnumerator);
         }
 
-        private IEnumerator<T> unevaluatedCollEnumerator;
         private List<T> evaluatedColl;
+        private IEnumerator<T> unevaluatedCollEnumerator;
 
         public class LazyEnumerator : IEnumerator<T>
         {
-            public LazyEnumerator(IEnumerator<T> unevaluatedCollEnumerator, List<T> evaluatedColl)
+            public LazyEnumerator(List<T> evaluatedColl, IEnumerator<T> unevaluatedCollEnumerator)
             {
-                this.unevaluatedCollEnumerator = unevaluatedCollEnumerator;
                 this.evaluatedColl = evaluatedColl;
-
                 this.evaluatedCollEnumerator = evaluatedColl.GetEnumerator();
+
+                this.unevaluatedCollEnumerator = unevaluatedCollEnumerator;
 
                 this.isNextEvaluated = true;
             }
@@ -81,10 +81,10 @@ namespace Sudoku.Lazy
             private T current;
             private bool isNextEvaluated;
 
-            private IEnumerator<T> unevaluatedCollEnumerator;
             private List<T> evaluatedColl;
-
             private IEnumerator<T> evaluatedCollEnumerator;
+
+            private IEnumerator<T> unevaluatedCollEnumerator;
         }
     }
 }
