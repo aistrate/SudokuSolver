@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sudoku.Lazy;
 
 namespace Sudoku.SudokuGrid
 {
@@ -37,7 +38,7 @@ namespace Sudoku.SudokuGrid
 
             IEnumerable<Cell[]> threeSquares = getThreeSquares();
 
-            allGroups = rows.Concat(columns).Concat(threeSquares);
+            allGroups = new LazyEnumerable<Cell[]>(rows.Concat(columns).Concat(threeSquares));
         }
 
         private IEnumerable<Cell[]> getThreeSquares()
