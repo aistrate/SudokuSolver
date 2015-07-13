@@ -7,7 +7,7 @@ namespace Sudoku.Lazy
     {
         public LazyEnumerable(IEnumerable<T> collection)
         {
-            evaluatedColl = new List<T>();
+            evaluatedColl = new DynamicList<T>();
             unevaluatedCollEnumerator = collection.GetEnumerator();
         }
 
@@ -21,67 +21,52 @@ namespace Sudoku.Lazy
             return new LazyEnumerator(evaluatedColl, unevaluatedCollEnumerator);
         }
 
-        private List<T> evaluatedColl;
+        private DynamicList<T> evaluatedColl;
         private IEnumerator<T> unevaluatedCollEnumerator;
 
         public class LazyEnumerator : IEnumerator<T>
         {
-            public LazyEnumerator(List<T> evaluatedColl, IEnumerator<T> unevaluatedCollEnumerator)
+            public LazyEnumerator(DynamicList<T> evaluatedColl, IEnumerator<T> unevaluatedCollEnumerator)
             {
                 this.evaluatedColl = evaluatedColl;
                 this.evaluatedCollEnumerator = evaluatedColl.GetEnumerator();
 
                 this.unevaluatedCollEnumerator = unevaluatedCollEnumerator;
-
-                this.isNextEvaluated = true;
             }
 
-            object IEnumerator.Current { get { return current; } }
+            object IEnumerator.Current { get { return ((IEnumerator<T>)this).Current; } }
+
             T IEnumerator<T>.Current { get { return current; } }
 
             public bool MoveNext()
             {
-                if (isNextEvaluated)
+                bool hasNext = evaluatedCollEnumerator.MoveNext();
+
+                if (!hasNext)
                 {
-                    if (evaluatedCollEnumerator.MoveNext())
+                    hasNext = unevaluatedCollEnumerator.MoveNext();
+
+                    if (hasNext)
                     {
-                        current = evaluatedCollEnumerator.Current;
-                        return true;
-                    }
-                    else
-                    {
-                        isNextEvaluated = false;
-                        return MoveNext();
+                        evaluatedColl.Add(unevaluatedCollEnumerator.Current);
                     }
                 }
-                else
-                {
-                    if (unevaluatedCollEnumerator.MoveNext())
-                    {
-                        current = unevaluatedCollEnumerator.Current;
-                        evaluatedColl.Add(current);
-                        return true;
-                    }
-                    else
-                    {
-                        current = default(T);
-                        return false;
-                    }
-                }
+
+                current = evaluatedCollEnumerator.Current;
+
+                return hasNext;
             }
 
             public void Reset()
             {
                 evaluatedCollEnumerator = evaluatedColl.GetEnumerator();
-                isNextEvaluated = true;
             }
 
             public void Dispose() { }
 
             private T current;
-            private bool isNextEvaluated;
 
-            private List<T> evaluatedColl;
+            private DynamicList<T> evaluatedColl;
             private IEnumerator<T> evaluatedCollEnumerator;
 
             private IEnumerator<T> unevaluatedCollEnumerator;

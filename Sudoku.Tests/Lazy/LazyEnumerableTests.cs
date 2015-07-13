@@ -52,7 +52,7 @@ namespace Sudoku.Tests.Lazy
 
             while (true)
             {
-                Thread.Sleep(500);
+                //Thread.Sleep(500);
 
                 yield return n++;
             }
