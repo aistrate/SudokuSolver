@@ -7,7 +7,8 @@ namespace Sudoku.Lazy
     {
         public LazyEnumerable(IEnumerable<T> collection)
         {
-            onceOnlyEnumerator = collection.GetEnumerator();
+            unevaluatedCollEnumerator = collection.GetEnumerator();
+            evaluatedColl = new List<T>();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -17,20 +18,22 @@ namespace Sudoku.Lazy
 
         public IEnumerator<T> GetEnumerator()
         {
-            return new LazyEnumerator(onceOnlyEnumerator, evaluatedColl);
+            return new LazyEnumerator(unevaluatedCollEnumerator, evaluatedColl);
         }
 
-        private IEnumerator<T> onceOnlyEnumerator;
-        private List<T> evaluatedColl = new List<T>();
+        private IEnumerator<T> unevaluatedCollEnumerator;
+        private List<T> evaluatedColl;
 
         public class LazyEnumerator : IEnumerator<T>
         {
-            public LazyEnumerator(IEnumerator<T> onceOnlyEnumerator, List<T> evaluatedColl)
+            public LazyEnumerator(IEnumerator<T> unevaluatedCollEnumerator, List<T> evaluatedColl)
             {
-                this.onceOnlyEnumerator = onceOnlyEnumerator;
+                this.unevaluatedCollEnumerator = unevaluatedCollEnumerator;
                 this.evaluatedColl = evaluatedColl;
 
                 this.evaluatedCollEnumerator = evaluatedColl.GetEnumerator();
+
+                this.isNextEvaluated = true;
             }
 
             object IEnumerator.Current { get { return current; } }
@@ -53,9 +56,9 @@ namespace Sudoku.Lazy
                 }
                 else
                 {
-                    if (onceOnlyEnumerator.MoveNext())
+                    if (unevaluatedCollEnumerator.MoveNext())
                     {
-                        current = onceOnlyEnumerator.Current;
+                        current = unevaluatedCollEnumerator.Current;
                         evaluatedColl.Add(current);
                         return true;
                     }
@@ -76,9 +79,9 @@ namespace Sudoku.Lazy
             public void Dispose() { }
 
             private T current;
-            private bool isNextEvaluated = true;
+            private bool isNextEvaluated;
 
-            private IEnumerator<T> onceOnlyEnumerator;
+            private IEnumerator<T> unevaluatedCollEnumerator;
             private List<T> evaluatedColl;
 
             private IEnumerator<T> evaluatedCollEnumerator;
