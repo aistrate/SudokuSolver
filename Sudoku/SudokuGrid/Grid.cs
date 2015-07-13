@@ -31,22 +31,28 @@ namespace Sudoku.SudokuGrid
 
         private void assignGroups()
         {
-            Cell[][] rows = grid;
+            IEnumerable<Cell[]> rows = grid;
 
-            Cell[][] columns = Enumerable.Range(0, 9).Select(colIndex => Enumerable.Range(0, 9).Select(rowIndex => grid[rowIndex][colIndex]).ToArray()).ToArray();
+            IEnumerable<Cell[]> columns = Enumerable.Range(0, 9).Select(colIndex => Enumerable.Range(0, 9).Select(rowIndex => grid[rowIndex][colIndex]).ToArray());
 
-            Cell[][] threeSquares = new Cell[9][];
+            IEnumerable<Cell[]> threeSquares = getThreeSquares();
 
-            for (int row = 0; row < 9; row++)
-                threeSquares[row] = new Cell[9];
+            allGroups = rows.Concat(columns).Concat(threeSquares);
+        }
 
+        private IEnumerable<Cell[]> getThreeSquares()
+        {
             for (int outerRow = 0; outerRow < 3; outerRow++)
                 for (int outerCol = 0; outerCol < 3; outerCol++)
+                {
+                    Cell[] threeSquare = new Cell[9];
+
                     for (int innerRow = 0; innerRow < 3; innerRow++)
                         for (int innerCol = 0; innerCol < 3; innerCol++)
-                            threeSquares[3 * outerRow + outerCol][3 * innerRow + innerCol] = grid[3 * outerRow + innerRow][3 * outerCol + innerCol];
+                            threeSquare[3 * innerRow + innerCol] = grid[3 * outerRow + innerRow][3 * outerCol + innerCol];
 
-            allGroups = rows.Concat(columns).Concat(threeSquares).ToArray();
+                    yield return threeSquare;
+                }
         }
 
         private void validateGroups()
@@ -152,7 +158,7 @@ namespace Sudoku.SudokuGrid
         }
 
         private Cell[][] grid;
-        private Cell[][] allGroups;
+        private IEnumerable<Cell[]> allGroups;
         private bool isValid;
     }
 }
