@@ -7,7 +7,7 @@ namespace Sudoku.Lazy
     {
         public LazyEnumerable(IEnumerable<T> collection)
         {
-            evaluatedColl = new DynamicList<T>();
+            evaluatedColl = new IndexList<T>();
             unevaluatedCollEnumerator = collection.GetEnumerator();
         }
 
@@ -21,12 +21,12 @@ namespace Sudoku.Lazy
             return new LazyEnumerator(evaluatedColl, unevaluatedCollEnumerator);
         }
 
-        private DynamicList<T> evaluatedColl;
+        private IndexList<T> evaluatedColl;
         private IEnumerator<T> unevaluatedCollEnumerator;
 
-        public class LazyEnumerator : IEnumerator<T>
+        private class LazyEnumerator : IEnumerator<T>
         {
-            public LazyEnumerator(DynamicList<T> evaluatedColl, IEnumerator<T> unevaluatedCollEnumerator)
+            public LazyEnumerator(IndexList<T> evaluatedColl, IEnumerator<T> unevaluatedCollEnumerator)
             {
                 this.evaluatedColl = evaluatedColl;
                 this.evaluatedCollEnumerator = evaluatedColl.GetEnumerator();
@@ -66,7 +66,7 @@ namespace Sudoku.Lazy
 
             private T current;
 
-            private DynamicList<T> evaluatedColl;
+            private IndexList<T> evaluatedColl;
             private IEnumerator<T> evaluatedCollEnumerator;
 
             private IEnumerator<T> unevaluatedCollEnumerator;

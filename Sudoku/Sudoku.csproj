@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Backtracking\BacktrackingStack.cs" />
-    <Compile Include="Lazy\DynamicList.cs" />
+    <Compile Include="Lazy\IndexList.cs" />
     <Compile Include="Solver.cs" />
     <Compile Include="SudokuGrid\Cell.cs" />
     <Compile Include="SudokuGrid\Grid.cs" />

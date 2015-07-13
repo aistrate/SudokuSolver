@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 namespace Sudoku.Lazy
 {
-    public class DynamicList<T> : IEnumerable<T>
+    /// <summary>
+    /// Helper class for LazyEnumerable.
+    /// </summary>
+    internal class IndexList<T> : IEnumerable<T>
     {
         public void Add(T item)
         {
@@ -18,14 +21,14 @@ namespace Sudoku.Lazy
 
         public IEnumerator<T> GetEnumerator()
         {
-            return new DynamicEnumerator(list);
+            return new IndexListEnumerator(list);
         }
 
         private List<T> list = new List<T>();
 
-        public class DynamicEnumerator : IEnumerator<T>
+        private class IndexListEnumerator : IEnumerator<T>
         {
-            public DynamicEnumerator(List<T> list)
+            public IndexListEnumerator(List<T> list)
             {
                 this.currentIndex = -1;
                 this.list = list;
